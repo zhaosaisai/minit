@@ -1,0 +1,13 @@
+{
+  "name": "@zsee/minit",
+  "version": "1.0.0",
+  "description": "Create interface and mock datas from swagger",
+  "main": "index.ts",
+  "repository": "https://github.com/zhaosaisai/minit.git",
+  "author": "zhaosaisai <zhaosaisai@u51.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^3.6.3"
+  }
+}
