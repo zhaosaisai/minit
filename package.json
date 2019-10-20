@@ -2,12 +2,23 @@
   "name": "@zsee/minit",
   "version": "1.0.0",
   "description": "Create interface and mock datas from swagger",
-  "main": "index.ts",
+  "main": "./dist/index.js",
   "repository": "https://github.com/zhaosaisai/minit.git",
   "author": "zhaosaisai <zhaosaisai@u51.com>",
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@types/node": "^12.11.1",
     "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "ejs": "^2.7.1",
+    "get-value": "^3.0.1"
+  },
+  "scripts": {
+    "dev": "nodemon dist/lib/index.js",
+    "release": "bash ./bin/release.sh",
+    "deploy": "tsc && npm publish --access=public"
   }
 }
