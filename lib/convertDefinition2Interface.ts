@@ -6,9 +6,10 @@ interface InterfaceField {
 	type: string;
 }
 
-interface Interface {
+export interface Interface {
 	name: string;
 	fields: InterfaceField[];
+	description?: string;
 }
 
 
@@ -16,7 +17,7 @@ interface Interface {
  * 解构level:2 的type
  * @param types
  */
-export function getSecondLevelType(obj) {
+export function getSecondLevelType(obj: any = {}) {
 	if (obj.$ref) {
 		return getDefinitionKey(obj.$ref)
 	}

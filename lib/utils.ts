@@ -68,3 +68,35 @@ export function formatTime(time: StringOrNumber = Date.now(), format = 'YYYY-MM-
 export function getDefinitionKey(definition: string) {
   return definition.slice(definition.lastIndexOf('/') + 1)
 }
+
+/**
+ * 将url转换成格式化的变量名称
+ *
+ * @export
+ * @param {string} url
+ * @param {string} [prefix='']
+ */
+export function getFormattedName(url: string, prefix: string = '') {
+	url = url.replace(prefix, '')
+
+	if (url.charAt(0) === '/') {
+		url = url.slice(1)
+	}
+
+	return firstCharToUpper(url.replace(/[/|\-|_|\s]+(\w)?/g, (_, $1) => {
+		if ($1) {
+			return $1.toUpperCase()
+		}
+		return ''
+	}))
+}
+
+/**
+ * 首字母大写
+ *
+ * @export
+ * @param {string} str
+ */
+export function firstCharToUpper(str: string) {
+	return str.charAt(0).toUpperCase().concat(str.slice(1))
+}

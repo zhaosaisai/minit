@@ -1,7 +1,8 @@
 import getValue from 'get-value'
 
-import { getDefinitionKey, createBaseType } from './utils'
+import { getDefinitionKey, createBaseType, getFormattedName } from './utils'
 
+const prefix = '/TreasureBoxGateway/api/'
 interface Parameter {
   name: string;
   in: string;
@@ -13,13 +14,15 @@ interface Parameter {
   items?: any;
 }
 
-interface ParamObject {
+export interface ParamObject {
 	bodyParams?: any;
 	queryParams?: any;
 	pathParams?: any;
 	responseSchema?: any;
 	method?: string;
 	url?: string;
+	description?: string;
+	name?: string;
 }
 
 export const methods = [
@@ -55,7 +58,7 @@ export function getParams(parameters: Parameter[]): ParamObject {
   }
 
   parameters.forEach(parameter => {
-    const { name, required, type, schema, items } = parameter
+    const { name, required, type, schema, items, description } = parameter
     const position = parameter.in
     let key = ''
 
@@ -64,6 +67,7 @@ export function getParams(parameters: Parameter[]): ParamObject {
       param.pathParams[name] = {
 				type: createBaseType(type),
 				required,
+				description
 			}
       return
     }
@@ -81,6 +85,7 @@ export function getParams(parameters: Parameter[]): ParamObject {
 			schema,
 			items,
 			required,
+			description
 		}
   })
 
@@ -93,13 +98,17 @@ export default function makeParams(swaggerPaths: any) {
   Object.keys(swaggerPaths).forEach(url => {
 		const [method, config] = confirmMethods(swaggerPaths[url])
 		const responseSchema = getValue(swaggerPaths[url], `${method}.responses.200.schema`, {})
+		const description = getValue(swaggerPaths[url], `${method}.summary`, '')
 		const parameters = config['parameters'] || []
+		const name = `${method}${getFormattedName(url, prefix)}`
 
     if (parameters.length === 0) {
       params.push({
         method,
 				url,
-				responseSchema
+				responseSchema,
+				description,
+				name
       })
       return
     }
@@ -112,7 +121,9 @@ export default function makeParams(swaggerPaths: any) {
       bodyParams,
       queryParams,
 			pathParams,
-			responseSchema
+			responseSchema,
+			description,
+			name
     })
   })
 
