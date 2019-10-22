@@ -10,6 +10,8 @@ export interface Interface {
 	name: string;
 	fields: InterfaceField[];
 	description?: string;
+	url?: string;
+	method?: string;
 }
 
 

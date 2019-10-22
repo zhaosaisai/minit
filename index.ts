@@ -3,6 +3,7 @@ import { getSwaggerJson } from './lib/service'
 import  makeParamsObject from './lib/makeParamsObject'
 import convertDefinition2Interface from './lib/convertDefinition2Interface'
 import convertParam2Interface from './lib/convertParam2Interface'
+import createMock from './lib/createMock'
 
 getSwaggerJson('http://stable.treasureboxgateway.51.env/v2/api-docs?group=TreasureBoxGateway').then(json => {
 	// const d = convertDefinition2Interface(json.definitions)
@@ -27,9 +28,11 @@ getSwaggerJson('http://stable.treasureboxgateway.51.env/v2/api-docs?group=Treasu
 	// console.log(JSON.stringify(paramsInterfaces, null, 2))
 	// console.log(JSON.stringify(params, null, 2))
 
-	ejs.renderFile('./lib/templates/request.ejs', {
-		requests: params
-	}).then(data => {
-		console.log(data)
-	})
+	// ejs.renderFile('./lib/templates/request.ejs', {
+	// 	requests: params
+	// }).then(data => {
+	// 	console.log(data)
+	// })
+	const mock = createMock(json.paths, json.definitions);
+	console.log(JSON.stringify(mock, null, 2))
 })

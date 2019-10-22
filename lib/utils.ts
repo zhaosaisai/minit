@@ -7,13 +7,13 @@ export function createObject(type: string) {
   return
 }
 
-export function createBaseType(type: string | undefined) {
+export function createBaseType(type: string | undefined, format?: any) {
   switch(type) {
     case 'number':
     case 'integer':
-      return 'number'
+      return format === 'byte' ? `number|${format}` : 'number'
     case 'string':
-      return 'string'
+      return format ? `string|${format}` : 'string'
     case 'boolean':
 			return 'boolean'
 		default:
@@ -59,6 +59,14 @@ export function formatTime(time: StringOrNumber = Date.now(), format = 'YYYY-MM-
   })
 
   return format
+}
+
+/**
+ * 判断对象类型
+ * @param obj
+ */
+export function isPlainObject(obj: any) {
+  return Object.prototype.toString.call(obj) === '[object Object]'
 }
 
 /**
