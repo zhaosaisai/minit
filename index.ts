@@ -4,8 +4,9 @@ import  makeParamsObject from './lib/makeParamsObject'
 import convertDefinition2Interface from './lib/convertDefinition2Interface'
 import convertParam2Interface from './lib/convertParam2Interface'
 import createMock from './lib/createMock'
+import generateMockjs from './lib/generate/generateMockjs'
 
-getSwaggerJson('http://stable.treasureboxgateway.51.env/v2/api-docs?group=TreasureBoxGateway').then(json => {
+getSwaggerJson('https://generator.swagger.io/api/swagger.json').then(json => {
 	// const d = convertDefinition2Interface(json.definitions)
 	// console.log(JSON.stringify(d, null, 2))
 
@@ -35,4 +36,5 @@ getSwaggerJson('http://stable.treasureboxgateway.51.env/v2/api-docs?group=Treasu
 	// })
 	const mock = createMock(json.paths, json.definitions);
 	console.log(JSON.stringify(mock, null, 2))
+	console.log(generateMockjs(mock))
 })

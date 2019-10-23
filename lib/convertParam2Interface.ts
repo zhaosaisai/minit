@@ -17,7 +17,7 @@ export default function convertParam2Interface(params: ParamObject[]) {
 	const interfaces: Interface[] = []
 	// TODO 待优化
 	params.forEach(param => {
-		const { description = '', bodyParams, queryParams, method, url, pathParams, responseSchema } = param
+		const { description = '', bodyParams = {}, queryParams = {}, method, url, pathParams = {}, responseSchema } = param
 
 		if (Object.keys(bodyParams).length > 0) {
 			const name = `${firstCharToUpper(method as string)}${getFormattedName(url as string, prefix)}BodyInterface`
