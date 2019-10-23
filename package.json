@@ -20,5 +20,8 @@
     "dev": "nodemon dist/lib/index.js",
     "release": "bash ./bin/release.sh",
     "deploy": "tsc && npm publish --access=public"
-  }
+	},
+	"bugs": {
+		"url": "https://github.com/zhaosaisai/minit/issues"
+	}
 }
